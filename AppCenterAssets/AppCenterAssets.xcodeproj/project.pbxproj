@@ -486,6 +486,15 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		04BBBBCB20E11E750029B686 /* AssetsBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */,
+				A31B562920DD3FAE00D81CA1 /* MSAssetsBuilder.h */,
+			);
+			name = AssetsBuilder;
+			sourceTree = "<group>";
+		};
 		04BED7131ECB64B100E20975 /* OCHamcrest */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,15 +519,6 @@
 				6E0684371D35A3B900A8CC6C /* OCHamcrestIOS.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		1182FBF520E0DCD300CC9460 /* AssetsBuilder */ = {
-			isa = PBXGroup;
-			children = (
-				A31B562720DD3FA000D81CA1 /* MSAssetsBuilder.m */,
-				A31B562920DD3FAE00D81CA1 /* MSAssetsBuilder.h */,
-			);
-			path = AssetsBuilder;
 			sourceTree = "<group>";
 		};
 		6E0684361D35A39300A8CC6C /* Frameworks */ = {
@@ -665,11 +665,11 @@
 		E85547C21D2D6253002DF6E2 /* AppCenterAssets */ = {
 			isa = PBXGroup;
 			children = (
+				04BBBBCB20E11E750029B686 /* AssetsBuilder */,
 				E85547CC1D2D63EF002DF6E2 /* AppCenterAssets.h */,
 				E85547C31D2D6253002DF6E2 /* MSAssets.h */,
 				E85547C51D2D6253002DF6E2 /* MSAssets.m */,
 				A31B561820DD093700D81CA1 /* MSAssetsAPI.m */,
-				1182FBF520E0DCD300CC9460 /* AssetsBuilder */,
 				E85547CD1D2D64B0002DF6E2 /* Internals */,
 				E85547D01D2D65AF002DF6E2 /* Support */,
 			);
