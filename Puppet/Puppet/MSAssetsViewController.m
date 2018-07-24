@@ -3,7 +3,8 @@
  */
 
 #import "MSAssetsViewController.h"
-#import "AppCenterAssets.h"
+#import "MSAssetsDeploymentInstance.h"
+#import "MSAssets.h"
 #import "MSLogger.h"
 #import "MSUtility+File.h"
 #import "MSAlertController.h"

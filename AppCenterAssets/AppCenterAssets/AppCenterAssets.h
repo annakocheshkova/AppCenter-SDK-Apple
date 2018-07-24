@@ -2,4 +2,3 @@
 
 #import "MSAbstractLog.h"
 #import "MSEventLog.h"
-#import "MSAssets.h"
