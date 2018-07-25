@@ -237,18 +237,15 @@ static BOOL isRunningBinaryVersion = NO;
             handler(nil, error);
             return;
         }
-        if (!update) {
-            handler(nil, nil);
-        }
         if (!update || update.updateAppVersion ||
             (localPackage && ([update.packageHash isEqualToString:localPackage.packageHash])) ||
             ((!localPackage || localPackage.isDebugOnly) && [config.packageHash isEqualToString:update.packageHash] )){
             if (update && update.updateAppVersion){
                 MSLogInfo([MSAssets logTag], @"An update is available but it is not targeting the binary version of your app.");
                 [self.delegate handleBinaryVersionMismatchCallback];
-                handler(nil, nil);
-                return;
             }
+            handler(nil, nil);
+            return;
         } else {
             update.failedInstall = [[self settingManager] existsFailedUpdate:update.packageHash];
             if (deploymentKey){
