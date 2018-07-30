@@ -65,28 +65,20 @@
             [report setAssetsPackage:currentPackage];
             [report setStatus:MSAssetsDeploymentStatusSucceeded];
         } else {
-            
             /* Compare identifiers as strings for simplicity */
             if (![[previousStatusReportIdentifier toString] isEqualToString:[currentPackageIdentifier toString]]) {
                 report = [MSAssetsDeploymentStatusReport new];
+                [report setAssetsPackage:currentPackage];
+                [report setStatus:MSAssetsDeploymentStatusSucceeded];
+                NSString *previousLabel = [previousStatusReportIdentifier versionLabel];
+                [report setPreviousLabelOrAppVersion:previousLabel];
                 if ([previousStatusReportIdentifier hasDeploymentKey]) {
                     NSString *previousDeploymentKey = [previousStatusReportIdentifier deploymentKey];
-                    NSString *previousLabel = [previousStatusReportIdentifier versionLabel];
-                    [report setAssetsPackage:currentPackage];
-                    [report setStatus:MSAssetsDeploymentStatusSucceeded];
                     [report setPreviousDeploymentKey:previousDeploymentKey];
-                    [report setPreviousLabelOrAppVersion:previousLabel];
-                } else {
-                    
-                    /* Previous status report was with a binary app version. */
-                    [report setAssetsPackage:currentPackage];
-                    [report setStatus:MSAssetsDeploymentStatusSucceeded];
-                    [report setPreviousLabelOrAppVersion:[previousStatusReportIdentifier versionLabel]];
                 }
             }
         }
     }
-
     return report;
 }
 
@@ -115,7 +107,7 @@
         return;
     }
     MSAssetsStatusReportIdentifier *identifier;
-    if (report.appVersion.length == 0) {
+    if (report.appVersion.length != 0) {
         identifier = [[MSAssetsStatusReportIdentifier alloc] initWithAppVersion:report.appVersion];
     } else if (report.assetsPackage != nil) {
         identifier = [self buildPackageStatusReportIdentifier:report.assetsPackage];

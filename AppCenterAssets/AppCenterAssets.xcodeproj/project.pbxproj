@@ -201,6 +201,9 @@
 		3568A7F0201A9BBB00F3B860 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		358F9BC62019590200B9E22C /* MSLogWithProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 358F9BC52019590100B9E22C /* MSLogWithProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		387C77051D6CC39400D68CC1 /* MSServiceAbstract.h in Headers */ = {isa = PBXBuildFile; fileRef = 387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B110714210AF5E5005CDC56 /* MSAssetsTelemetryManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B110713210AF5E4005CDC56 /* MSAssetsTelemetryManagerTests.m */; };
+		4B110715210AF5E5005CDC56 /* MSAssetsTelemetryManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B110713210AF5E4005CDC56 /* MSAssetsTelemetryManagerTests.m */; };
+		4B110716210AF5E5005CDC56 /* MSAssetsTelemetryManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B110713210AF5E4005CDC56 /* MSAssetsTelemetryManagerTests.m */; };
 		4B6A9EAC20E618760044589C /* MSAssetsReportSender.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B6A9EAA20E618750044589C /* MSAssetsReportSender.h */; };
 		4B6A9EAD20E618760044589C /* MSAssetsReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6A9EAB20E618760044589C /* MSAssetsReportSender.m */; };
 		4B721CF120EA7FFC0040A566 /* MSAssetsStatusReportIdentifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */; };
@@ -442,6 +445,7 @@
 		04ED31EB1EAAD3390033BAAE /* iOS.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = iOS.modulemap; sourceTree = "<group>"; };
 		358F9BC52019590100B9E22C /* MSLogWithProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSLogWithProperties.h; path = ../AppCenter/AppCenter/Model/MSLogWithProperties.h; sourceTree = "<group>"; };
 		387C77041D6CC39400D68CC1 /* MSServiceAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MSServiceAbstract.h; path = ../AppCenter/AppCenter/MSServiceAbstract.h; sourceTree = "<group>"; };
+		4B110713210AF5E4005CDC56 /* MSAssetsTelemetryManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsTelemetryManagerTests.m; sourceTree = "<group>"; };
 		4B6A9EAA20E618750044589C /* MSAssetsReportSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsReportSender.h; sourceTree = "<group>"; };
 		4B6A9EAB20E618760044589C /* MSAssetsReportSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSAssetsReportSender.m; sourceTree = "<group>"; };
 		4B721CEF20EA7FFB0040A566 /* MSAssetsStatusReportIdentifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAssetsStatusReportIdentifier.h; sourceTree = "<group>"; };
@@ -1032,6 +1036,7 @@
 		E85547D61D2D6723002DF6E2 /* AppCenterAssetsTests */ = {
 			isa = PBXGroup;
 			children = (
+				4B110713210AF5E4005CDC56 /* MSAssetsTelemetryManagerTests.m */,
 				4BC08C522105FC4E00838385 /* MSAssetsUpdateUtilitiesTests.m */,
 				4BC7861F20FD17E4009A6E51 /* Info.plist */,
 				4BC7861B20FD177F009A6E51 /* MSAssetsTests.m */,
@@ -1411,6 +1416,7 @@
 				04E07C102108A92E00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */,
 				046B14B82107430C00390DDA /* MSDeploymentInstanceTests.m in Sources */,
 				4BC7861E20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
+				4B110716210AF5E5005CDC56 /* MSAssetsTelemetryManagerTests.m in Sources */,
 				04AFD2CE2100AC41001814A8 /* MSAssetsSerializationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1425,6 +1431,7 @@
 				04E07C0F2108A92D00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */,
 				046B14B72107430A00390DDA /* MSDeploymentInstanceTests.m in Sources */,
 				4BC7861D20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
+				4B110715210AF5E5005CDC56 /* MSAssetsTelemetryManagerTests.m in Sources */,
 				04AFD2CD2100AC3F001814A8 /* MSAssetsSerializationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1516,6 +1523,7 @@
 				04E07C0E2108A92C00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */,
 				046B14B62107430800390DDA /* MSDeploymentInstanceTests.m in Sources */,
 				4BC7861C20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
+				4B110714210AF5E5005CDC56 /* MSAssetsTelemetryManagerTests.m in Sources */,
 				04AFD2CC2100AC3E001814A8 /* MSAssetsSerializationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
