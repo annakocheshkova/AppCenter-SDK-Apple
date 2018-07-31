@@ -185,6 +185,9 @@
 		04AFD2CD2100AC3F001814A8 /* MSAssetsSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AFD2CA2100ABD9001814A8 /* MSAssetsSerializationTests.m */; };
 		04AFD2CE2100AC41001814A8 /* MSAssetsSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AFD2CA2100ABD9001814A8 /* MSAssetsSerializationTests.m */; };
 		04BED7181ECB64FB00E20975 /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BED7161ECB64CE00E20975 /* OCHamcrest.framework */; };
+		04CDFB36211051F2005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CDFB34211051EB005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m */; };
+		04CDFB37211051F3005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CDFB34211051EB005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m */; };
+		04CDFB38211051F4005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CDFB34211051EB005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m */; };
 		04D914D820EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */; };
 		04E07C0E2108A92C00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E07C0C2108A92900EBD1A0 /* MSDeploymentInstanceTests+Sync.m */; };
 		04E07C0F2108A92D00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E07C0C2108A92900EBD1A0 /* MSDeploymentInstanceTests+Sync.m */; };
@@ -433,6 +436,7 @@
 		04AFD2C521008652001814A8 /* MSAssetsSettingManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsSettingManagerTests.m; sourceTree = "<group>"; };
 		04AFD2CA2100ABD9001814A8 /* MSAssetsSerializationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsSerializationTests.m; sourceTree = "<group>"; };
 		04BED7161ECB64CE00E20975 /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = ../../Vendor/macOS/OCHamcrest/OCHamcrest.framework; sourceTree = "<group>"; };
+		04CDFB34211051EB005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MSDeploymentInstanceTests+DownloadAndInstall.m"; sourceTree = "<group>"; };
 		04D914D620EDF5D20042B9C2 /* MSAssetsiOSSpecificImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAssetsiOSSpecificImplementation.h; sourceTree = "<group>"; };
 		04D914D720EDF6070042B9C2 /* MSAssetsiOSSpecificImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAssetsiOSSpecificImplementation.m; sourceTree = "<group>"; };
 		04E07C0C2108A92900EBD1A0 /* MSDeploymentInstanceTests+Sync.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MSDeploymentInstanceTests+Sync.m"; sourceTree = "<group>"; };
@@ -1045,6 +1049,7 @@
 				04E07C112108A9EF00EBD1A0 /* MSDeploymentInstanceTests.h */,
 				046B14B421073CF400390DDA /* MSDeploymentInstanceTests.m */,
 				04E07C0C2108A92900EBD1A0 /* MSDeploymentInstanceTests+Sync.m */,
+				04CDFB34211051EB005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m */,
 				04A140B21ECE814E001CEE94 /* Util */,
 				04A140B11ECE811D001CEE94 /* Model */,
 				6E0684361D35A39300A8CC6C /* Frameworks */,
@@ -1413,6 +1418,7 @@
 				4BC08C552105FC4E00838385 /* MSAssetsUpdateUtilitiesTests.m in Sources */,
 				04AFD2C421007FD2001814A8 /* MSMockUserDefaults.m in Sources */,
 				04AFD2C92100867B001814A8 /* MSAssetsSettingManagerTests.m in Sources */,
+				04CDFB38211051F4005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m in Sources */,
 				04E07C102108A92E00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */,
 				046B14B82107430C00390DDA /* MSDeploymentInstanceTests.m in Sources */,
 				4BC7861E20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
@@ -1428,6 +1434,7 @@
 				4BC08C542105FC4E00838385 /* MSAssetsUpdateUtilitiesTests.m in Sources */,
 				04AFD2C321007FD1001814A8 /* MSMockUserDefaults.m in Sources */,
 				04AFD2C82100867A001814A8 /* MSAssetsSettingManagerTests.m in Sources */,
+				04CDFB37211051F3005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m in Sources */,
 				04E07C0F2108A92D00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */,
 				046B14B72107430A00390DDA /* MSDeploymentInstanceTests.m in Sources */,
 				4BC7861D20FD177F009A6E51 /* MSAssetsTests.m in Sources */,
@@ -1520,6 +1527,7 @@
 				4BC08C532105FC4E00838385 /* MSAssetsUpdateUtilitiesTests.m in Sources */,
 				04AFD2C221007FCE001814A8 /* MSMockUserDefaults.m in Sources */,
 				04AFD2C721008679001814A8 /* MSAssetsSettingManagerTests.m in Sources */,
+				04CDFB36211051F2005A3EF9 /* MSDeploymentInstanceTests+DownloadAndInstall.m in Sources */,
 				04E07C0E2108A92C00EBD1A0 /* MSDeploymentInstanceTests+Sync.m in Sources */,
 				046B14B62107430800390DDA /* MSDeploymentInstanceTests.m in Sources */,
 				4BC7861C20FD177F009A6E51 /* MSAssetsTests.m in Sources */,

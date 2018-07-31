@@ -28,6 +28,12 @@
     }
 }
 
+- (id)mockSyncDelegate {
+    id delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
+    OCMStub([[delegateMock ignoringNonObjectArgs] syncStatusChanged:0]);
+    return delegateMock;
+}
+
 //#pragma MARK: CheckForUpdate tests
 - (void)testCheckForUpdateNotCalled {   
     
@@ -121,7 +127,7 @@
     //If
     MSAssetsRemotePackage *rmPackage = [[MSAssetsRemotePackage alloc] init];
     [rmPackage setPackageHash:kMSPackageHash];
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
@@ -142,7 +148,7 @@
     //If
     MSAssetsRemotePackage *rmPackage = [[MSAssetsRemotePackage alloc] init];
     [rmPackage setPackageHash:kMSPackageHash];
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     id delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
@@ -164,7 +170,7 @@
     
     // If
     NSError *mainError = [[NSError alloc] init];
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     id delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
@@ -189,7 +195,7 @@
     [rmPackage setPackageHash:kMSPackageHash];
     [rmPackage setUpdateAppVersion:YES];
     
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     id delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
@@ -235,7 +241,7 @@
     MSAssetsRemotePackage *rmPackage = [[MSAssetsRemotePackage alloc] init];
     [rmPackage setPackageHash:kMSPackageHash];
     
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     [configuration setDeploymentKey:kMSDeploymentKey];
     
@@ -257,7 +263,7 @@
     
     // If
     NSError *mainError = [[NSError alloc] init];
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
@@ -275,7 +281,7 @@
 - (void)testCheckForUpdateQueryCallbackNil {
     
     // If
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     MSAssetsConfiguration *configuration = [[MSAssetsConfiguration alloc] init];
     
     [self checkForUpdateCallWithDeploymentKey:kMSDeploymentKey
@@ -386,9 +392,9 @@
 
 - (void)testGetUpdateMetadataPrevious {
     NSString *previousHash = @"HASH-PREV";
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [localPackage setPackageHash:kMSPackageHash];
-    MSAssetsLocalPackage *previousPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *previousPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [previousPackage setPackageHash:previousHash];
     id assetsMock = OCMPartialMock(self.sut);
     id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
@@ -410,9 +416,9 @@
 
 - (void)testGetUpdateMetadataPreviousError {
     NSString *previousHash = @"HASH-PREV";
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [localPackage setPackageHash:kMSPackageHash];
-    MSAssetsLocalPackage *previousPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *previousPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [previousPackage setPackageHash:previousHash];
     id assetsMock = OCMPartialMock(self.sut);
     id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
@@ -433,7 +439,7 @@
 }
 
 - (void)testGetUpdateMetadataNoPending {
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [localPackage setPackageHash:kMSPackageHash];
     id assetsMock = OCMPartialMock(self.sut);
     id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
@@ -479,7 +485,7 @@
 }
 
 - (void)testGetUpdateMetadataPending {
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [localPackage setPackageHash:kMSPackageHash];
     MSAssetsDeploymentInstanceState *instanceState = [MSAssetsDeploymentInstanceState new];
     [instanceState setIsRunningBinaryVersion:YES];
@@ -507,7 +513,7 @@
 }
 
 - (void)testGetUpdateMetadataRunning {
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [localPackage setPackageHash:kMSPackageHash];
     MSAssetsDeploymentInstanceState *instanceState = [MSAssetsDeploymentInstanceState new];
     [instanceState setIsRunningBinaryVersion:NO];

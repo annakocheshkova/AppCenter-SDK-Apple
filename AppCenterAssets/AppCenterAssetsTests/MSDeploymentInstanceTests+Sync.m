@@ -9,12 +9,6 @@
 
 @implementation MSDeploymentInstanceTests (Sync)
 
-- (id)mockSyncDelegate {
-    id delegateMock = OCMProtocolMock(@protocol(MSAssetsDelegate));
-    OCMStub([[delegateMock ignoringNonObjectArgs] syncStatusChanged:0]);
-    return delegateMock;
-}
-
 //#pragma MARK: Sync tests
 - (void)testSyncNotCalled {
     
@@ -102,12 +96,12 @@
 - (void)testSyncUpdateInstalled {
     
     //If
-    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:@"1.6.2" updateAppVersion:NO];
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:kMSAppVersion updateAppVersion:NO];
     [remotePackage setFailedInstall:YES];
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setIgnoreFailedUpdates:YES];
     [syncOptions setDeploymentKey:kMSDeploymentKey];
-    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:kMSAppVersion];
     [localPackage setIsPending:YES];
     MSAssetsConfiguration *configuration = [MSAssetsConfiguration new];
     id delegateMock = [self mockSyncDelegate];
@@ -131,7 +125,7 @@
 - (void)testSyncUpToDate {
     
     //If
-    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:@"1.6.2" updateAppVersion:NO];
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:kMSAppVersion updateAppVersion:NO];
     [remotePackage setFailedInstall:YES];
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setIgnoreFailedUpdates:YES];
@@ -159,7 +153,7 @@
     
     //If
     NSError *doDownloadAndInstallError = [[NSError alloc] init];
-    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:@"1.6.2" updateAppVersion:NO];
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:kMSAppVersion updateAppVersion:NO];
     [remotePackage setFailedInstall:YES];
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setIgnoreFailedUpdates:NO];
@@ -186,7 +180,7 @@
 - (void)testSyncUpdateDialogDecline {
     
     //If
-    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:@"1.6.2" updateAppVersion:NO];
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:kMSAppVersion updateAppVersion:NO];
     [remotePackage setFailedInstall:YES];
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setIgnoreFailedUpdates:NO];
@@ -221,7 +215,7 @@
 - (void)testSyncUpdateDialogAccept {
     
     //If
-    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:@"1.6.2" updateAppVersion:NO];
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:kMSAppVersion updateAppVersion:NO];
     [remotePackage setFailedInstall:YES];
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setIgnoreFailedUpdates:NO];
@@ -259,7 +253,7 @@
 - (void)testSyncUpdateDialogAcceptDownloadError {
     
     //If
-    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:@"1.6.2" updateAppVersion:NO];
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:kMSAppVersion updateAppVersion:NO];
     [remotePackage setFailedInstall:YES];
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setIgnoreFailedUpdates:NO];
@@ -294,7 +288,7 @@
 - (void)testSyncDoDownloadAndInstall {
     
     //If
-    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:@"1.6.2" updateAppVersion:NO];
+    MSAssetsRemotePackage *remotePackage = [MSAssetsRemotePackage createDefaultRemotePackageWithAppVersion:kMSAppVersion updateAppVersion:NO];
     [remotePackage setFailedInstall:YES];
     MSAssetsSyncOptions *syncOptions = [MSAssetsSyncOptions new];
     [syncOptions setIgnoreFailedUpdates:NO];
@@ -360,7 +354,7 @@
  */
 - (void)syncWithSyncOptions:(MSAssetsSyncOptions *) syncOptions
            andDeploymentKey:(NSString *)deploymentKey
-           andConfiguration: (MSAssetsConfiguration *)configuration
+           andConfiguration:(MSAssetsConfiguration *)configuration
             andLocalPackage:(MSAssetsLocalPackage *)localPackage
                 andDelegate:(id<MSAssetsDelegate>)delegate
            andRemotePackage:(MSAssetsRemotePackage *)rmPackage

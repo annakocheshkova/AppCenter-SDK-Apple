@@ -3,6 +3,7 @@
 NS_ASSUME_NONNULL_BEGIN
 static NSString *const kMSDeploymentKey = @"11111111-0000-1111-0000-111111111111";
 static NSString *const kMSPackageHash = @"00000000-1111-0000-1111-000000000000";
+static NSString *const kMSAppVersion = @"1.6.2";
 
 // Make private method available for mocking.
 @interface MSAssetsDeploymentInstance (Test)
@@ -22,7 +23,12 @@ static NSString *const kMSPackageHash = @"00000000-1111-0000-1111-000000000000";
                        andHandler:(void (^ __nullable)())handler
                  andCancelHandler:(void (^ __nullable)())cancelHandler;
 - (void) rollbackPackage;
-
+- (void)downloadUpdate:(MSAssetsRemotePackage *)updatePackage
+       completeHandler:(MSAssetsPackageDownloadHandler)completeHandler;
+- (NSError *)installUpdate:(MSAssetsLocalPackage*)updatePackage
+               installMode:(MSAssetsInstallMode)installMode
+ minimumBackgroundDuration:(int)minimumBackgroundDuration;
+- (BOOL)isFirstRun:(NSString *)packageHash error:(NSError *__autoreleasing *)error;
 @end
 
 @interface MSDeploymentInstanceTests : XCTestCase
@@ -35,6 +41,7 @@ static NSString *const kMSPackageHash = @"00000000-1111-0000-1111-000000000000";
                                 andDelegate: (nullable id<MSAssetsDelegate>)delegate
                       andCallbackCompletion: (nullable MSCheckForUpdateCompletionHandler)handler;
 
+-(id)mockSyncDelegate;
 @property (nonatomic) MSAssetsDeploymentInstance *sut;
 @end
 

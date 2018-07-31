@@ -640,17 +640,11 @@ __attribute__((used)) static void importCategories() {
         }
         [strongSelf notifyAboutSyncStatusChange:MSAssetsSyncStatusUpdateInstalled instanceState:[strongSelf instanceState]];
         [[strongSelf instanceState] setSyncInProgress:NO];
-        if (resolvedInstallMode == MSAssetsInstallModeImmediate && [syncOptions shouldRestart]) {
-            [[strongSelf restartManager] restartAppOnlyIfUpdateIsPending:NO];
-        } else {
-            [[strongSelf restartManager] clearPendingRestarts];
-        }
-        
         if (resolvedInstallMode == MSAssetsInstallModeImmediate) {
             if ([syncOptions shouldRestart]) {
                 [[strongSelf restartManager] restartAppOnlyIfUpdateIsPending:NO];
             } else {
-                self.instanceState.didUpdate = YES;
+                strongSelf.instanceState.didUpdate = YES;
                 [[strongSelf restartManager] clearPendingRestarts];
             }
         }
