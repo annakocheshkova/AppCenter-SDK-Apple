@@ -113,6 +113,7 @@
     }
     [assetsMock stopMocking];
     [mockAcquisitionManager stopMocking];
+    [mockSettingManager stopMocking];
 }
 
 - (void)testCheckForUpdate {
@@ -309,6 +310,7 @@
     [assetsMock stopMocking];
 }
 
+//#pragma MARK: InitializeUpdateAfterRestart tests
 - (void)testInitializeUpdateAfterRestartUpdateStateIsLoading {
     id assetsMock = OCMPartialMock(self.sut);
     
@@ -339,6 +341,9 @@
     [assetsMock initializeUpdateAfterRestartWithError:&error];
     
     OCMVerify([assetsMock rollbackPackage]);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+    [mockSettingManager stopMocking];
 }
 
 - (void)testInitializeUpdateAfterRestartUpdateStateLoaded {
@@ -372,6 +377,161 @@
     
     XCTAssertTrue([[assetsMock instanceState] didUpdate]);
     OCMVerify([mockSettingManager savePendingUpdate:pendingUpdate]);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+    [mockSettingManager stopMocking];
+}
+
+//#pragma MARK: GetUpdateMetadata tests
+
+- (void)testGetUpdateMetadataPrevious {
+    NSString *previousHash = @"HASH-PREV";
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    [localPackage setPackageHash:kMSPackageHash];
+    MSAssetsLocalPackage *previousPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    [previousPackage setPackageHash:previousHash];
+    id assetsMock = OCMPartialMock(self.sut);
+    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
+    OCMStub([mockSettingManager isPendingUpdate:kMSPackageHash]).andReturn(YES);
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError *__autoreleasing*)[OCMArg anyPointer]]).andReturn(localPackage);
+    OCMStub([mockUpdateManager getPreviousPackage:(NSError *__autoreleasing*)[OCMArg anyPointer]]).andReturn(previousPackage);
+    [assetsMock setUpdateManager:mockUpdateManager];
+    [assetsMock setSettingManager:mockSettingManager];
+    NSError *error = nil;
+    MSAssetsLocalPackage *returnedPackage = [assetsMock getUpdateMetadataForState:MSAssetsUpdateStateRunning withError:&error];
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(previousPackage, returnedPackage);
+    XCTAssertEqualObjects([previousPackage packageHash], [returnedPackage packageHash]);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+    [mockSettingManager stopMocking];
+}
+
+- (void)testGetUpdateMetadataPreviousError {
+    NSString *previousHash = @"HASH-PREV";
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    [localPackage setPackageHash:kMSPackageHash];
+    MSAssetsLocalPackage *previousPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    [previousPackage setPackageHash:previousHash];
+    id assetsMock = OCMPartialMock(self.sut);
+    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
+    OCMStub([mockSettingManager isPendingUpdate:kMSPackageHash]).andReturn(YES);
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError *__autoreleasing*)[OCMArg anyPointer]]).andReturn(localPackage);
+    NSError *packageError = [[NSError alloc] init];
+    OCMStub([mockUpdateManager getPreviousPackage:[OCMArg setTo:packageError]]).andReturn(previousPackage);
+    [assetsMock setUpdateManager:mockUpdateManager];
+    [assetsMock setSettingManager:mockSettingManager];
+    NSError *error = nil;
+    MSAssetsLocalPackage *returnedPackage = [assetsMock getUpdateMetadataForState:MSAssetsUpdateStateRunning withError:&error];
+    XCTAssertEqualObjects(packageError, error);
+    XCTAssertNil(returnedPackage);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+    [mockSettingManager stopMocking];
+}
+
+- (void)testGetUpdateMetadataNoPending {
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    [localPackage setPackageHash:kMSPackageHash];
+    id assetsMock = OCMPartialMock(self.sut);
+    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
+    OCMStub([mockSettingManager isPendingUpdate:kMSPackageHash]).andReturn(NO);
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError *__autoreleasing*)[OCMArg anyPointer]]).andReturn(localPackage);
+    [assetsMock setUpdateManager:mockUpdateManager];
+    [assetsMock setSettingManager:mockSettingManager];
+    NSError *error = nil;
+    MSAssetsLocalPackage *returnedPackage = [assetsMock getUpdateMetadataForState:MSAssetsUpdateStatePending withError:&error];
+    XCTAssertNil(error);
+    XCTAssertNil(returnedPackage);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+    [mockSettingManager stopMocking];
+}
+
+- (void)testGetUpdateMetadataNoPackage {
+    id assetsMock = OCMPartialMock(self.sut);
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError *__autoreleasing*)[OCMArg anyPointer]]).andReturn(nil);
+    [assetsMock setUpdateManager:mockUpdateManager];
+    NSError *error = nil;
+    MSAssetsLocalPackage *returnedPackage = [assetsMock getUpdateMetadataForState:MSAssetsUpdateStatePending withError:&error];
+    XCTAssertNil(error);
+    XCTAssertNil(returnedPackage);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+}
+
+- (void)testGetUpdateMetadataError {
+    id assetsMock = OCMPartialMock(self.sut);
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    NSError *packageError = [[NSError alloc] init];
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError *__autoreleasing*)[OCMArg setTo:packageError]]).andReturn(nil);
+    [assetsMock setUpdateManager:mockUpdateManager];
+    NSError *error = nil;
+    MSAssetsLocalPackage *returnedPackage = [assetsMock getUpdateMetadataForState:MSAssetsUpdateStatePending withError:&error];
+    XCTAssertEqualObjects(packageError,error);
+    XCTAssertNil(returnedPackage);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+}
+
+- (void)testGetUpdateMetadataPending {
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    [localPackage setPackageHash:kMSPackageHash];
+    MSAssetsDeploymentInstanceState *instanceState = [MSAssetsDeploymentInstanceState new];
+    [instanceState setIsRunningBinaryVersion:YES];
+    id assetsMock = OCMPartialMock(self.sut);
+    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
+    OCMStub([mockSettingManager isPendingUpdate:kMSPackageHash]).andReturn(YES);
+    OCMStub([mockSettingManager existsFailedUpdate:kMSPackageHash]).andReturn(YES);
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError *__autoreleasing*)[OCMArg anyPointer]]).andReturn(localPackage);
+    [assetsMock setUpdateManager:mockUpdateManager];
+    [assetsMock setSettingManager:mockSettingManager];
+    [assetsMock setInstanceState:instanceState];
+    OCMStub([assetsMock isFirstRun:kMSPackageHash error:(NSError *__autoreleasing *)[OCMArg anyPointer]]).andReturn(YES);
+    NSError *error = nil;
+    MSAssetsLocalPackage *returnedPackage = [assetsMock getUpdateMetadataForState:MSAssetsUpdateStatePending withError:&error];
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(localPackage, returnedPackage);
+    XCTAssertTrue([localPackage isDebugOnly]);
+    XCTAssertTrue([localPackage isPending]);
+    XCTAssertTrue([localPackage failedInstall]);
+    XCTAssertTrue([localPackage isFirstRun]);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+    [mockSettingManager stopMocking];
+}
+
+- (void)testGetUpdateMetadataRunning {
+    MSAssetsLocalPackage *localPackage = [MSAssetsLocalPackage createLocalPackageWithAppVersion:@"1.6.2"];
+    [localPackage setPackageHash:kMSPackageHash];
+    MSAssetsDeploymentInstanceState *instanceState = [MSAssetsDeploymentInstanceState new];
+    [instanceState setIsRunningBinaryVersion:NO];
+    id assetsMock = OCMPartialMock(self.sut);
+    id mockSettingManager = OCMClassMock([MSAssetsSettingManager class]);
+    OCMStub([mockSettingManager isPendingUpdate:kMSPackageHash]).andReturn(NO);
+    OCMStub([mockSettingManager existsFailedUpdate:kMSPackageHash]).andReturn(NO);
+    id mockUpdateManager = OCMClassMock([MSAssetsUpdateManager class]);
+    OCMStub([mockUpdateManager getCurrentPackage:(NSError *__autoreleasing*)[OCMArg anyPointer]]).andReturn(localPackage);
+    [assetsMock setUpdateManager:mockUpdateManager];
+    [assetsMock setSettingManager:mockSettingManager];
+    [assetsMock setInstanceState:instanceState];
+    OCMStub([assetsMock isFirstRun:kMSPackageHash error:(NSError *__autoreleasing *)[OCMArg anyPointer]]).andReturn(NO);
+    NSError *error = nil;
+    MSAssetsLocalPackage *returnedPackage = [assetsMock getUpdateMetadataForState:MSAssetsUpdateStateRunning withError:&error];
+    XCTAssertNil(error);
+    XCTAssertEqualObjects(localPackage, returnedPackage);
+    XCTAssertFalse([localPackage isDebugOnly]);
+    XCTAssertFalse([localPackage isPending]);
+    XCTAssertFalse([localPackage isFirstRun]);
+    XCTAssertFalse([localPackage failedInstall]);
+    [assetsMock stopMocking];
+    [mockUpdateManager stopMocking];
+    [mockSettingManager stopMocking];
 }
 
 @end

@@ -37,10 +37,6 @@ __attribute__((used)) static void importCategories() {
     [NSString stringWithFormat:@"%@ %@", BundleJWTFile, CategoryReference];
 }
 
-static BOOL isRunningBinaryVersion = NO;
-//static BOOL needToReportRollback = NO;
-//static BOOL testConfigurationFlag = NO;
-
 - (instancetype)initWithEntryPoint:(nullable NSString *)entryPoint
                          publicKey:(nullable NSString *)publicKey
                      deploymentKey:(nullable NSString *)deploymentKey
@@ -433,7 +429,7 @@ static BOOL isRunningBinaryVersion = NO;
     NSError *__autoreleasing internalError;
     MSAssetsLocalPackage *package = [[self updateManager] getCurrentPackage:&internalError];
     if (internalError){
-        error = &internalError;
+        *error = internalError;
         return nil;
     }
     if (package == nil){
@@ -458,18 +454,18 @@ static BOOL isRunningBinaryVersion = NO;
         // one is pending, so we need to grab the previous.
         package = [[self updateManager] getPreviousPackage:&internalError];
         if (internalError){
-            error = &internalError;
+            *error = internalError;
             return nil;
-        }
-        else
+        } else {
             return package;
+        }
     } else {
         
         // The current package satisfies the request:
         // 1) Caller wanted a pending, and there is a pending update
         // 2) Caller wanted the running update, and there isn't a pending
         // 3) Caller wants the latest update, regardless if it's pending or not
-        if (isRunningBinaryVersion) {
+        if (self.instanceState.isRunningBinaryVersion) {
             
             // This only matters in Debug builds. Since we do not clear "outdated" updates,
             // we need to indicate to the JS side that somehow we have a current update on
@@ -478,10 +474,19 @@ static BOOL isRunningBinaryVersion = NO;
         }
         
         // Enable differentiating pending vs. non-pending updates
+        NSString *packageHash = package.packageHash;
         package.isPending = currentUpdateIsPending;
+        package.failedInstall = [[self settingManager] existsFailedUpdate:packageHash];
+        package.isFirstRun = [self isFirstRun: packageHash error:error];
         return package;
     }
 
+}
+
+- (BOOL)isFirstRun:(NSString *)packageHash error:(NSError *__autoreleasing *)error {
+    return self.instanceState.didUpdate
+    && packageHash != nil && packageHash.length != 0
+    && [packageHash isEqualToString:[[self updateManager] getCurrentPackageHash:error]];
 }
 
 - (MSAssetsLocalPackage *)getCurrentPackage {

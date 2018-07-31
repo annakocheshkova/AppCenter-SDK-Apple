@@ -131,10 +131,10 @@ typedef void (^MSAssetsDownloadInstallHandler)(NSError * _Nullable error);
 @property (nonatomic, copy, readonly) MSAssetsTelemetryManager *telemetryManager;
 @property (nonatomic, nullable) MSAssetsDownloadHandler *downloadHandler;
 @property (nonatomic, readonly, nullable) MSAssetsUpdateUtilities *updateUtilities;
-@property (nonatomic, readonly) MSAssetsUpdateManager *updateManager;
+@property (nonatomic) MSAssetsUpdateManager *updateManager;
 @property (nonatomic) MSAssetsAcquisitionManager *acquisitionManager;
 @property (nonatomic) MSAssetsSettingManager *settingManager;
-@property (nonatomic, readonly) MSAssetsRestartManager *restartManager;
+@property (nonatomic) MSAssetsRestartManager *restartManager;
 
 @end
 
