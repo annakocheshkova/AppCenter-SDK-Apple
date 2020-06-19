@@ -2168,7 +2168,6 @@
 						};
 					};
 					B20AE37C21027D6200A1A195 = {
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -3591,13 +3590,15 @@
 			baseConfigurationReference = F8B8EB9421107890004BCECB /* Puppet.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SasquatchObjC/SasquatchObjC.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 285W24646W;
 				INFOPLIST_FILE = "$(SRCROOT)/SasquatchPuppet/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akvelon.appcenter.native.ios.puppet;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = TestAzDo2;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Debug;
 		};
@@ -3606,12 +3607,15 @@
 			baseConfigurationReference = F8B8EB9421107890004BCECB /* Puppet.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = SasquatchObjC/SasquatchObjC.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 285W24646W;
 				INFOPLIST_FILE = "$(SRCROOT)/SasquatchPuppet/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akvelon.appcenter.native.ios.puppet;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = TestAzDo2;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = NO;
 			};
 			name = Release;
 		};
