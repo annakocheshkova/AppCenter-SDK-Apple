@@ -3595,7 +3595,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UBF8T346G9;
 				INFOPLIST_FILE = "$(SRCROOT)/SasquatchPuppet/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.microsoft.appcenter.native.ios.puppet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akvelon.appcenter.native.ios.puppet;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
