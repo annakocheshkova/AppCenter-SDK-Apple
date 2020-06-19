@@ -1611,7 +1611,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84226C711E88FF4A00798417 /* Build configuration list for PBXNativeTarget "SasquatchObjC" */;
 			buildPhases = (
-				F84923E92111C2AD00E14DBE /* Verify No Build Settings */,
 				F83D7A802317C4FF00E7E8F4 /* Remove the wrong framework */,
 				84226C431E88FF4A00798417 /* Sources */,
 				84226C441E88FF4A00798417 /* Frameworks */,
@@ -2453,21 +2452,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#\"${SRCROOT}/../Scripts/VerifyNoBuildSettings.swift\" ${PROJECT_NAME}.xcodeproj/project.pbxproj\n";
-			showEnvVarsInLog = 0;
-		};
-		F84923E92111C2AD00E14DBE /* Verify No Build Settings */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Verify No Build Settings";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Scripts/VerifyNoBuildSettings.swift\" ${PROJECT_NAME}.xcodeproj/project.pbxproj\n";
 			showEnvVarsInLog = 0;
 		};
 		F84923EA2111C2C100E14DBE /* Verify No Build Settings */ = {
